@@ -15,13 +15,13 @@ public class NewUserProfileRoute extends RouteBuilder {
   public void configure() throws Exception {
 
     from("direct:newUserRoute")
-        .log("entering new user profile route body: ${body}")
+        .log("entering new user route req body: ${body}")
         .process(this::processNewProfile)
         .log("new profile created with userId :['${body.userId}']")
         .multicast()
         .parallelProcessing()
         .to("direct:streamingProfileRoute", "direct:shoppingProfileRoute")
-        .log("-----original route body unchanged: ${body}")
+        .log("-----original profile body unchanged: ${body}")
         .end();
   }
 
